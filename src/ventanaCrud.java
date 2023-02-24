@@ -251,7 +251,7 @@ public class ventanaCrud {
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("insert");
+        JFrame frame = new JFrame("CRUD");
         frame.setContentPane(new ventanaCrud().panel );
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
