@@ -1,4 +1,4 @@
-# CORRECCIÓN DE LA PRUEBA2 DE POO
+# CORRECCIÓN DE LA PRUEBA 2 DE POO
 ----
 # Wilson Guayanay
 ----
