@@ -31,6 +31,7 @@ public class ventanaCrud {
 
 
     public ventanaCrud(){
+        //No hace visible a estos dos botones
         botonActualizar.setEnabled(false);
         botonBorrar.setEnabled(false);
 
@@ -67,8 +68,6 @@ public class ventanaCrud {
             e.printStackTrace();
         }
 
-
-
         botonCrear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,7 +77,6 @@ public class ventanaCrud {
 
                 try{
                     con = getConection();
-
                     // Consultar si la Id_Clie ya existe en la tabla "productos"
                     PreparedStatement psConsulta = con.prepareStatement("SELECT Id_Clie FROM productos WHERE Id_Clie = ?");
                     psConsulta.setString(1, txtCedula.getText());
@@ -111,17 +109,12 @@ public class ventanaCrud {
                             JOptionPane.showMessageDialog(null, "Error al Guardar persona");
                         }
                     }
-
                     con.close();//importante!!!!
-
                 }catch (HeadlessException | SQLException f) {
                     System.err.println(f);
                 }
-
             }
         });
-
-
 
         limpiarPantallaButton.addActionListener(new ActionListener() {
             @Override
@@ -134,7 +127,6 @@ public class ventanaCrud {
                 txtDireccion.setText("");
             }
         });
-
 
         botonBuscar.addActionListener(new ActionListener() {
             @Override
@@ -173,7 +165,6 @@ public class ventanaCrud {
         });
 
 
-
         botonActualizar.addActionListener(new ActionListener() {
             Connection con2;
             @Override
@@ -195,13 +186,10 @@ public class ventanaCrud {
                     } else {
                         JOptionPane.showMessageDialog(null, "Error al Actualizar persona");
                     }
-
                     con2.close();
-
                 }catch (HeadlessException | SQLException f) {
                     System.err.println(f);
                 }
-
             }
         });
 
