@@ -31,6 +31,8 @@ public class ventanaCrud {
 
 
     public ventanaCrud(){
+        botonActualizar.setEnabled(false);
+        botonBorrar.setEnabled(false);
 
 
         // Mostrar el contenido de los ComboBox en pantalla
@@ -72,7 +74,6 @@ public class ventanaCrud {
             public void actionPerformed(ActionEvent e) {
                 botonActualizar.setEnabled(true);
                 botonBorrar.setEnabled(true);
-                botonBuscar.setEnabled(true);
                 Connection con = null;
 
                 try{
@@ -138,6 +139,8 @@ public class ventanaCrud {
         botonBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                botonActualizar.setEnabled(true);
+                botonBorrar.setEnabled(true);
                 Connection con;
 
                 try {
@@ -228,8 +231,6 @@ public class ventanaCrud {
                 }
             }
         });
-
-
 
     }
 
