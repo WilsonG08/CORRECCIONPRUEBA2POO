@@ -1,13 +1,7 @@
 import javax.swing.*;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.sql.*;
 
 public class ventanaCrud {
@@ -29,6 +23,7 @@ public class ventanaCrud {
     private JButton botonActualizar;
     private JButton botonCrear;
     private JPanel panel;
+    private JButton limpiarPantallaButton;
 
     PreparedStatement ps;
     Statement st;
@@ -37,6 +32,7 @@ public class ventanaCrud {
 
     public ventanaCrud(){
 
+        // Mostrar el contenido de los combo box
         // select  farmacia.productos
         try {
             Connection con = getConection();
@@ -71,7 +67,7 @@ public class ventanaCrud {
 
 
         botonActualizar.setEnabled(false);
-        botonBorrar.setEnabled(false);
+        //limpiarPantallaButton.setEnabled(false);
 
 
         botonCrear.addActionListener(new ActionListener() {
@@ -85,12 +81,18 @@ public class ventanaCrud {
 
                 try{
                     con = getConection();
-                    ps = con.prepareStatement("INSERT INTO productos (Id_Clie, Nom_Clie, Cant_Clie, Dir_Clie) VALUES(?,?,?,?) ");
+                    ps = con.prepareStatement("INSERT INTO productos (Id_Clie, Nom_Clie,Ciu_Clie,Pro_Clie,Cant_Clie, Dir_Clie) VALUES(?,?,?,?,?,?) ");
 
                     ps.setString(1, txtCedula.getText());
                     ps.setString(2, txtNombreC.getText());
-                    ps.setString(3, txtCantidad.getText());
-                    ps.setString(4, txtDireccion.getText());
+                    // Variable para almacenar en el comboBox
+                    String ciudadSeleccionada = comboBoxCiudad.getSelectedItem().toString();
+                    ps.setString(3, ciudadSeleccionada);
+                    // Variable para almacenar en el comboBox
+                    String productoSeleccionada = comboBoxProducto.getSelectedItem().toString();
+                    ps.setString(4,productoSeleccionada);
+                    ps.setString(5, txtCantidad.getText());
+                    ps.setString(6, txtDireccion.getText());
                     System.out.println(ps);//imprimo en consola para verificación
 
                     int res = ps.executeUpdate();
@@ -109,27 +111,44 @@ public class ventanaCrud {
 
             }
         });
+        limpiarPantallaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                txtCedula.setText("");
+                txtNombreC.setText("");
+                comboBoxCiudad.setSelectedIndex(0);
+                comboBoxProducto.setSelectedIndex(0);
+                txtCantidad.setText("");
+                txtDireccion.setText("");
+            }
+        });
+
 
         botonBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Connection con;
 
-                try{
+                try {
                     con = getConection();
                     st = con.createStatement();
                     ResultSet rs;
-                    rs=st.executeQuery("select * from farmacia.productos where Id_Clie="+txtCedula.getText()+";");
-                    while (rs.next()){
+                    rs = st.executeQuery("select * from farmacia.productos where Id_Clie=" + txtCedula.getText() + ";");
+                    while (rs.next()) {
                         txtNombreC.setText(rs.getString("Nom_Clie"));
                         txtCantidad.setText(rs.getString("Cant_Clie"));
                         txtDireccion.setText(rs.getString("Dir_Clie"));
+                        String ciudadSeleccionada = rs.getString("Ciu_Clie");
+                        comboBoxCiudad.setSelectedItem(ciudadSeleccionada);
+                        String productoSeleccionado = rs.getString("Pro_Clie");
+                        comboBoxProducto.setSelectedItem(productoSeleccionado);
                     }
-                }catch (Exception s){
-
+                } catch (Exception s) {
+                    System.err.println(s);
                 }
             }
         });
+
 
     }
 
