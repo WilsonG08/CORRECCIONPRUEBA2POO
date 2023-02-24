@@ -43,5 +43,17 @@ select * from nombreproductos
 
 select * from farmacia.productos
 
+----
+
+Enlace del video:
+https://youtu.be/tR0J4BQm8W4
+
+----
+
+Pantalla principal
+
+![image](https://user-images.githubusercontent.com/117754219/221083738-4fccbe09-20f5-40e1-9a43-f80cea626d9c.png)
+
+
 
 
